@@ -1,0 +1,38 @@
+$query = <<<'QUERY'
+mutation m {
+  a1:addTicket(ticket: {
+	type:"Чек",
+	department:"Доставка",
+	user:"Administrator",
+	terminal:"Сервер",
+	note:"Çabuk olsun",
+	entities: [{entityType: "Клиенты", name: "Daghan"}],
+	states:[
+		{stateName:"Статус",state:"Неоплачен",stateValue:"website"}
+	],	
+	tags:[
+		{tagName:"Тип заказа",tag:"Доставка"},
+		{tagName:"Откуда",tag:"GOOGLE"}
+	],
+	calculations:[{name:"Скидка",amount:10}],
+	orders:	[{
+		name: "Гамбургер", 
+		menuItemName:"Гамбургер", 
+		quantity:5, 
+		price:2300,             
+		states:[
+			{stateName:"Status",state:"Новый"}
+		]} 
+	]
+	}) {
+	id
+  },
+  a2:updateEntityState(
+	entityTypeName:"Клиенты",
+	entityName:"Daghan",
+	stateName:"Status",
+	state:"Новые заказы"
+  ){name},
+  a3:postTicketRefreshMessage(id:0){id}  
+}
+QUERY;
